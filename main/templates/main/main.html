@@ -1,22 +1,4 @@
-<!DOCTYPE html>
-{% load static %}
-
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>my blog</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="{% static 'main/css/main.css' %}">
-    </head>
-    <body>
-    {% include 'main/navbar.html' %}
-
-      <h1>my blog</h1>
-      <h2>Django 說 -- Hello world!</h2>
-      <p>{{ like }}</p>
-        
-        <script src="" async defer></script>
-    </body>
-</html>
+{% extends 'main/base.html' %}
+{% block title %}homepage{% endblock %}
+{% block heading %}Homepage{% endblock %}
+{% block content %}hello!  homepage!{% endblock %}
