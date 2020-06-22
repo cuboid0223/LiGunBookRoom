@@ -11,14 +11,22 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="{% static 'main/css/main.css' %}">
+    {% block css%}{% endblock %}
 </head>
 
 <body>
 
     {% include 'main/navbar.html' %}
     <h1>{% block heading %}{% endblock %}</h1>
+    {% for message in messages %}
+        <p class="{{ message.tags }}">{{ message }}</p>
+    {% endfor %}
     <p>{% block content %}{% endblock %}</p>
-    <script src="" async defer></script>
+
+    <script   src="https://code.jquery.com/jquery-3.5.1.js"   integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="   crossorigin="anonymous"></script>
+    {% block script %}
+        
+    {% endblock %}
 </body>
 
 </html>
