@@ -15,17 +15,25 @@
 </head>
 
 <body>
-
     {% include 'main/navbar.html' %}
     <h1>{% block heading %}{% endblock %}</h1>
+
     {% for message in messages %}
         <p class="{{ message.tags }}">{{ message }}</p>
     {% endfor %}
-    <p>{% block content %}{% endblock %}</p>
 
-    <script   src="https://code.jquery.com/jquery-3.5.1.js"   integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="   crossorigin="anonymous"></script>
-    {% block script %}
+    <div class="content">{% block content %}
         
+        
+        
+        
+        {% endblock %}</div>
+
+    <!-- jQuery cdn -->
+    <script   src="https://code.jquery.com/jquery-3.5.1.js"   integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="   crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/226a6eca39.js" crossorigin="anonymous"></script> <!-- icon cdn -->
+    {% block script %}
+        <!-- 放置js的地方 -->
     {% endblock %}
 </body>
 

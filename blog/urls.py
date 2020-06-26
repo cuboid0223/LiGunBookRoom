@@ -20,6 +20,9 @@ from main import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('main/', include('main.urls', namespace = 'main')),
+    path('account/', include('account.urls', namespace = 'account')),
     path('article/', include('article.urls', namespace = 'article')),
+    path('', include('social_django.urls', namespace='social')),#第三方登入
     re_path('.*', views.main),
 ]
+

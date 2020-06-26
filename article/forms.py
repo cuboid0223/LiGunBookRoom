@@ -3,7 +3,7 @@ from article.models import Article
 
 class ArticleForm(forms.ModelForm):
     title = forms.CharField(label='標題', max_length=128)
-    comtent = forms.CharField(label='內容', widget=forms.Textarea)
+    content = forms.CharField(label='內容', widget=forms.Textarea)
 
     class Meta:
         model = Article

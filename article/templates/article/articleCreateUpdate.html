@@ -1,8 +1,9 @@
 {% extends 'main/base.html' %}
 {% load static %}
 {% block css %}
-<link rel='stylesheet' href='{% static 'article/css/article.css' %}'>
+    <link rel='stylesheet' href='{% static 'article/css/article.css' %}'>
 {% endblock %}
+
 {% block heading %}
     {% if articleForm.instance.id %}
         修改文章
@@ -10,6 +11,7 @@
         新增文章
     {% endif %}
 {% endblock %}
+
 {% block content %}
     {% if articleForm.instance.id %}
         <form method='post' action="{% url 'article:articleUpdate' articleForm.instance.id %}">

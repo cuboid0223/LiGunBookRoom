@@ -3,7 +3,10 @@ from article.models import Article,Comment #從 articel/models.py 匯入 Article
 from article.forms import ArticleForm #
 from django.contrib import messages # INSTALLED_APPS 裡的 django.contrib.message 訊息框架
 from django.db.models.query_utils import Q #Django 用來處理搜尋
-# Create your views here.
+from django.contrib.auth.decorators import login_required #未登入者存取限制
+from main.views import admin_required
+
+ # Create your views here.
 def article(request):
     '''
     render the article page
@@ -13,6 +16,7 @@ def article(request):
     context={'articles':articles}
     return render(request, 'article/article.html',context)
 
+@admin_required
 def articleCreate(request):
     '''
     Create a new article instance
@@ -42,6 +46,8 @@ def articleRead(request, articleId):
 
     return render(request, 'article/articleRead.html', context)
 
+
+@admin_required
 def articleUpdate(request, articleId):
     article = get_object_or_404(Article, id=articleId)
     template = 'article/articleCreateUpdate.html'
@@ -57,6 +63,8 @@ def articleUpdate(request, articleId):
     messages.success(request, '文章已修改')
     return redirect('article:articleRead', articleId=articleId)
 
+
+@admin_required
 def articleDelete(request, articleId):
     if request.method == 'GET':
         return render('article:article')
@@ -71,3 +79,65 @@ def articleSearch(request):
     articles = Article.objects.filter(Q(title__icontains=searchTerm) | Q(content__icontains=searchTerm))
     context = {'articles':articles, 'searchTerm':searchTerm}
     return render(request, 'article/articleSearch.html', context)
+
+@login_required
+def articleLike(request, articleId):
+    article = get_object_or_404(Article, id=articleId)
+    if request.user not in article.likes.all():
+        article.likes.add(request.user)
+    else:#收回愛心
+        article.likes.remove(request.user)
+    #return articleRead(request, articleId)
+    return redirect('article:article')
+
+
+@login_required
+def commentCreate(request, articleId):
+    if request.method == 'GET':
+        return render(request, articleId)
+    #POST
+    comment = request.POST.get('comment')
+    if comment:
+        comment = comment.strip()
+    if not comment:
+        return redirect('article:articleRead', articleId=articleId)
+    
+    article = get_object_or_404(Article, id=articleId)
+    Comment.objects.create(article=article, user=request.user, content=comment)
+    #return redirect('article:articleRead', articleId=articleId)
+    return redirect('article:article')
+
+
+@login_required
+def commentUpdate(request, commentId):
+    commentToUpdate = get_object_or_404(Comment, id=commentId)
+    article = get_object_or_404(Article, id=commentToUpdate.article.id)
+    if request.method == 'GET':
+        return article(request, article.id)
+    #POST
+    if commentToUpdate.user != request.user:
+        messages.error(request, '你當你阿泓喔？') 
+        # return redirect('article:articleRead', articleId=article.id)
+        return redirect('article:article')
+    comment = request.POST.get('comment', '').strip()
+    if not comment:
+        commentToUpdate.delete()
+    else:
+        commentToUpdate.content = comment
+        commentToUpdate.save()
+    return redirect('article:article')
+
+
+@login_required
+def commentDelete(request, commentId):
+    comment=get_object_or_404(Comment, id=commentId)
+    article=get_object_or_404(Article, id=comment.article.id)
+    if request.method == 'GET':
+        return articleRead(request, article.id)
+    if comment.user != request.user:
+        messages.error(request, '無刪除權限')
+        # return redirect('article:articleRead', articleId=article.id)
+        return redirect('article:article')
+    comment.delete()
+    # return redirect('article:articleRead', articleId=article.id)
+    return redirect('article:article')

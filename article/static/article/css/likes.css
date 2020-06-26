@@ -1,0 +1,47 @@
+/* 愛心icon */
+.like {
+    display: flex;
+    width: 30px;
+    height: 30px;
+    position: relative;
+    perspective: 1000px;
+    /*立體透視深度，即是讓物件看起來有3D的感覺*/
+    /*而perspective的值我們可以想像成物件距離螢幕的距離，如果值越大代表越遠。*/
+    /*數值越小代表離螢幕越近，而越貼近則會有透視越強烈的感覺*/
+}
+
+.yes-like,
+#not-like {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    /*絕對定位 使兩個div重疊*/
+    backface-visibility: hidden;
+    /*html 元素背後不可看見*/
+    transition: .8s;
+    /*動畫時間 0.8秒*/
+}
+
+.yes-like {
+    color: red;
+    opacity: 0;
+
+    /*設定-180deg即是將back翻到背面（背面看不到，因為設定了 backface-visibility: hidden;）*/
+
+}
+
+#not-like {
+    color: red;
+    opacity: 1;
+
+}
+
+.likes-count{
+    display: inline-block;
+}
+/* .yes-like:hover #not-like {
+    transform: rotateY(180deg);
+}
+#not-like:hover .yes-like{
+    transform: rotateY(-180deg);
+} */

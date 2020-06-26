@@ -24,7 +24,8 @@ SECRET_KEY = '9evo97=^p6(v=dtw%ckh*c4*a4+gj7phna^(_#x8bf8xf17st@'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
+if 'DYNO' in os.environ: #Running on Heroku
+    DEBUG = False
 ALLOWED_HOSTS = ["*"]
 
 
@@ -38,7 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'main',
+    'account',
     'article',
+    'social_django',#第三方登入
 ]
 
 MIDDLEWARE = [
@@ -64,6 +67,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',  # 第三方登入
+                'social_django.context_processors.login_redirect',  # 第三方登入
             ],
         },
     },
@@ -74,17 +79,21 @@ WSGI_APPLICATION = 'blog.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'blogdb',
-        'USER': 'dbuser',
-        'PASSWORD': 'dbuser',
-        'HOST': 'localhost',
-        'POST': '',
+if DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'blogdb',
+            'USER': 'dbuser',
+            'PASSWORD': 'dbuser',
+            'HOST': 'localhost',
+            'POST': '',
+        }
     }
-}
+else:
+    import dj_database_url
+    DATABASES = {'default':dj_database_url.config()}
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 
 # Password validation
@@ -124,3 +133,22 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+AUTH_USER_MODEL = 'account.User' #如果改用客製化 User model ， 讓 Django 知道 User model 已經改為 account.User
+
+LOGIN_URL = '/account/login/' #未登入者直接轉址到登入畫面
+
+STATIC_ROOT = 'staticfiles'
+
+# 第三方登入
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.github.GithubOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+)
+SOCIAL_AUTH_URL_NAMESPACE = 'social'
+SOCIAL_AUTH_GITHUB_USE_OPENID_AS_USERNAME = True
+# 登入成功後轉址
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/main'
+
+SOCIAL_AUTH_GITHUB_KEY = '8d5f5d921a2476e9f492'
+SOCIAL_AUTH_GITHUB_SECRET = 'f2c0654f950d26d560dc6744d394baa808153751'

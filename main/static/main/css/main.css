@@ -7,8 +7,7 @@
 }
 
 body {
-    background-color: black;
-    color: aliceblue;
+    color: black;
 }
 
 #navbar {
@@ -31,39 +30,41 @@ body {
     color: #fff;
 }
 
-.commentDiv{
-    width: 300px;
-    background-color: #444545;
-    border: 1px solid transparent;
-    font-size: 12px;
-}
 
-ul #menu li{
+ul #menu li {
     display: inline-block;
 }
 
-.btn{
+button,
+i {
+    background-color: transparent;
+    border: transparent;
+}
+
+.btn {
     display: inline-block;
     color: #444545;
     font-size: .8em;
     padding: .5em 1em;
     text-decoration: none;
     border: thin solid gray;
-    background: linear-gradient(#f7f7f7,#dedede);
-    font-family:  Helvetica;
+    background: linear-gradient(#f7f7f7, #dedede);
+    font-family: Helvetica;
     border-radius: 10px;
 }
 
 /* Messages */
-.success, 
-.error{
+.success,
+.error {
     padding: 1em 0 3em;
 }
-.success{
+
+.success {
     background-color: greenyellow;
     border: thin solid green;
 }
-.error{
+
+.error {
     background-color: #fbd9d8;
     border: thin solid red;
 }
