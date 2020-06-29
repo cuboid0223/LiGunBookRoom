@@ -1,4 +1,27 @@
 {% extends 'main/base.html' %}
-{% block title %}homepage{% endblock %}
-{% block heading %}Homepage{% endblock %}
-{% block content %}hello!  homepage!{% endblock %}
+{% block title %}首頁{% endblock %}
+{% block heading %}
+
+{% endblock %}
+
+{% block content %}
+<h1 class="ligun-title">哩</h1>
+<div class="homepage-wrapper">
+   
+    <div class="photo-banner">
+        <img src="https://images.pexels.com/photos/981147/pexels-photo-981147.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+            alt="banner">
+            <p class="text2">剛</p>
+            <p class="text3">齋</p>
+            <p class="text4">?</p>
+    </div>
+</div>
+<footer>
+    <ul>
+        <li><a href="">LIS Bunny</a></li>
+        <li><a href="">Sirla</a></li>
+        <li><a href="{% url 'main:privacy' %}">隱私權政策</a></li>
+        <li><a href="">&copy ligun all right reserve</a></li>
+    </ul>
+</footer>
+{% endblock %}

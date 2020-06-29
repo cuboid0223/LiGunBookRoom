@@ -16,6 +16,8 @@ def about(request):
     '''
     return render(request,"main/about.html")
 
+def privacy(request):
+    return render(request,"main/privacy.html")
 
 def admin_required(func):
     def auth(request, *args, **kwargs):

@@ -13,14 +13,14 @@
         <ul id='navbar'>
             <li><a href="{% url 'main:main' %}">首頁</a></li>
             <li><a href="{% url 'main:about' %}">關於</a></li>
-            <li><a href="{% url 'article:article' %}">雜七雜八</a></li>
+            <li><a href="{% url 'article:article' %}">哩哩摳摳</a></li>
             
             {% if user.is_authenticated %}
                 <li><a href="{% url 'account:logout' %}">登出</a></li>
             {% else %}
                 <li><a href="{% url 'account:register' %}">註冊</a></li>
                 <li><a href="{% url 'account:login' %}">登入</a></li>
-                <li><a href="{% url 'social:begin' 'google' %}">Google 登入</a></li>
+                <!-- <li><a href="{% url 'social:begin' 'google' %}">Google 登入</a></li> -->
             {% endif %}
         </ul>
        
