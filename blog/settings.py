@@ -142,19 +142,17 @@ STATIC_ROOT = 'staticfiles'
 
 # 第三方登入
 AUTHENTICATION_BACKENDS = (
-    'social_core.backends.facebook.FacebookOAuth2',
     'social_core.backends.github.GithubOAuth2',
     'social_core.backends.google.GoogleOAuth2',
-    'social_core.backends.twitter.TwitterOAuth',
     'django.contrib.auth.backends.ModelBackend',
 )
 SOCIAL_AUTH_URL_NAMESPACE = 'social'
 SOCIAL_AUTH_GITHUB_USE_OPENID_AS_USERNAME = True
-# 登入成功後轉址
-SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/main'
 
-SOCIAL_AUTH_GITHUB_KEY = '8d5f5d921a2476e9f492'
-SOCIAL_AUTH_GITHUB_SECRET = 'f2c0654f950d26d560dc6744d394baa808153751'
+
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '228815969584-1ir0me2t6gn0mbl9qi0d3m13046bsuop.apps.googleusercontent.com'
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET ='nVLpC9TaxOm1SrXSRTY8IsnY'
+
+# 登入成功後轉址
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/main'
