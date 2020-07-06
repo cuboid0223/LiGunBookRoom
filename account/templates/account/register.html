@@ -6,6 +6,7 @@
         {{ userForm.as_p }}
         <input  class="btn" type="submit" value="送出">
     </form>
+   
     <!--新增超連結-->
     <a href="{% url 'social:begin' 'google-oauth2' %}">GOOLE 登入</a>
 {% endblock %}

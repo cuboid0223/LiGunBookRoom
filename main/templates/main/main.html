@@ -1,21 +1,23 @@
 {% extends 'main/base.html' %}
 {% block title %}首頁{% endblock %}
+{% load static %}
 {% block heading %}
 
 {% endblock %}
 
 {% block content %}
-<h1 class="ligun-title">哩</h1>
-<div class="homepage-wrapper">
+<!-- <h1 class="ligun-title">哩</h1> -->
+
    
     <div class="photo-banner">
-        <img src="https://images.pexels.com/photos/981147/pexels-photo-981147.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+            <img class="banner" src="https://images.pexels.com/photos/1061623/pexels-photo-1061623.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
             alt="banner">
-            <p class="text2">剛</p>
+            <!-- <p class="text2">剛</p>
             <p class="text3">齋</p>
-            <p class="text4">?</p>
+            <p class="text4">?</p> -->
+            <img class="ligunjei" src="{% static "main/img/ligunjei.png" %}" alt="ligunjei">
     </div>
-</div>
+
 <footer>
     <ul>
         <li><a href="">LIS Bunny</a></li>
