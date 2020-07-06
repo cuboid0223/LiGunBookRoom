@@ -2,19 +2,18 @@ from django import forms
 from account.models import User
 
 
-from django.core.files.images import get_image_dimensions#使用者頭像
 
 
 class UserForm(forms.ModelForm):
     username = forms.CharField(label='帳號')
     password = forms.CharField(label='密碼', widget=forms.PasswordInput)
     password2 = forms.CharField(label='確認密碼', widget=forms.PasswordInput)
-    fullname = forms.CharField(label='姓名', max_length=128)
+    fullname = forms.CharField(label='暱稱', max_length=8)
     website = forms.URLField(label='個人網址', max_length=128, required=False)
     address = forms.CharField(label='住址', max_length=128, required=False)# required=False 表示非必填選項欄
     class Meta:
         model = User
-        fields = '__all__'
+        fields = ['username','password','password2','fullname']
     
     def clean_password2(self):
         password = self.cleaned_data.get('password')
