@@ -12,7 +12,6 @@ class UserForm(forms.ModelForm):
     fullname = forms.CharField(label='姓名', max_length=128)
     website = forms.URLField(label='個人網址', max_length=128, required=False)
     address = forms.CharField(label='住址', max_length=128, required=False)# required=False 表示非必填選項欄
-    avater = forms.ImageField(label='頭貼', required=False)  # 使用者頭像
     class Meta:
         model = User
         fields = '__all__'
@@ -30,38 +29,5 @@ class UserForm(forms.ModelForm):
         user.save()
         return user
 
-    def clean_avatar(self):  # 使用者頭像
-        avatar = self.cleaned_data['avatar']
-
-        try:
-            w, h = get_image_dimensions(avatar)
-
-            #validate dimensions
-            max_width = max_height = 100
-            if w > max_width or h > max_height:
-                raise forms.ValidationError(
-                    u'Please use an image that is '
-                    '%s x %s pixels or smaller.' % (max_width, max_height))
-
-            #validate content type
-            main, sub = avatar.content_type.split('/')
-            if not (main == 'image' and sub in ['jpeg', 'pjpeg', 'gif', 'png']):
-                raise forms.ValidationError(u'Please use a JPEG, '
-                                            'GIF or PNG image.')
-
-            #validate file size
-            if len(avatar) > (20 * 1024):
-                raise forms.ValidationError(
-                    u'Avatar file size may not exceed 20k.')
-
-        except AttributeError:
-            """
-            Handles case when we are updating the user profile
-            and do not supply a new avatar
-            """
-            pass
-
-        return avatar
-
-
+    
     
