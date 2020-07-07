@@ -36,6 +36,10 @@ i {
     border-radius: 10px;
 }
 
+#switch:checked+.container {
+    transform: translateX(-100%);
+}
+
 /* Messages */
 .success,
 .error {
@@ -61,12 +65,7 @@ i {
 
 }
 
-#navbar {
-    display: flex;
-    background-color: #fff;
-    position: fixed;
-    z-index: 100;
-}
+
 
 /* ----------------------footer--------------------- */
 footer {
@@ -103,16 +102,18 @@ footer li:nth-child(3):hover {
 /* ------------------手機------------------ */
 @media screen and (max-width: 500px) {
     .contain {
-        height: 100vh;
+        width: auto;
+        height: auto;
+        position: relative;
     }
 
     .photo-banner {
         height: 100vh;
-        background-color: red;
+
     }
 
     .photo-banner img:first-child {
-        width: 100%;
+        width: auto;
         height: 100vh;
     }
 
@@ -139,7 +140,6 @@ footer li:nth-child(3):hover {
 
 
     .photo-banner {
-        background-color: blue;
         width: 100%;
         height: 100vh;
     }

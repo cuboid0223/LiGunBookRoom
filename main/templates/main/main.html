@@ -6,24 +6,22 @@
 {% endblock %}
 
 {% block content %}
-<!-- <h1 class="ligun-title">哩</h1> -->
 
-   
-    <div class="photo-banner">
-            <img class="banner" src="https://images.pexels.com/photos/1061623/pexels-photo-1061623.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-            alt="banner">
-            <!-- <p class="text2">剛</p>
-            <p class="text3">齋</p>
-            <p class="text4">?</p> -->
-            <img class="ligunjei" src="{% static "main/img/ligunjei.png" %}" alt="ligunjei">
+
+   <div class="container">
+        <div class="photo-banner">
+                <img class="banner" src="https://images.pexels.com/photos/1061623/pexels-photo-1061623.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+                alt="banner">
+                <img class="ligunjei" src="{% static "main/img/ligunjei.png" %}" alt="ligunjei">
+        </div>
+
+        <footer>
+            <ul>
+                <li><a href="">LIS Bunny</a></li>
+                <li><a href="">Sirla</a></li>
+                <li><a href="{% url 'main:privacy' %}">隱私權政策</a></li>
+                <li><a href="">&copy ligun all right reserve</a></li>
+            </ul>
+        </footer>
     </div>
-
-<footer>
-    <ul>
-        <li><a href="">LIS Bunny</a></li>
-        <li><a href="">Sirla</a></li>
-        <li><a href="{% url 'main:privacy' %}">隱私權政策</a></li>
-        <li><a href="">&copy ligun all right reserve</a></li>
-    </ul>
-</footer>
 {% endblock %}
