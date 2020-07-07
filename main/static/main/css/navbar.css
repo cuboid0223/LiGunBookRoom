@@ -1,25 +1,28 @@
 .fixed {
     position: fixed;
     z-index: 100;
+    
+    right: 10px;
 }
 
 .sides-bar {
     color: aliceblue;
     width: auto;
-    background-color: transparent;
+    background-color: #fff;
+    border: 1px solid #444545;
+    border-radius: 10px;
     height: auto;
     position: relative;
+
     transform: translateX(0);
     transition: .3s;
 }
 
 .sides-bar label {
     color: black;
-    line-height: 50px;
-    width: 50px;
     position: absolute;
-    right: -100px;
-    top: 20px;
+    left: 10px;
+    bottom: -55px;
 }
 
 #switch {
@@ -30,34 +33,36 @@
 
 label .fas {
     font-size: 40px;
-    position: absolute;
-    top: -25px;
-    left: -40px;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
     color: #444545;
-    background-color: red;
+    border-radius: 50%;
+    background-color: #fff;
+    border: 1px solid #444545;
+    padding: 10px;
     display: block;
+    transform: rotate(90deg);
 }
 
 #switch:checked+.sides-bar {
-    transform: translateX(-100%);
+    transform: translateY(-100%);
 }
 
-/* fas 翻轉
-#switch:checked .fas { 
-    transform: scale(60deg);
-} */
+
+#switch:checked > label .fas { 
+    transform: rotate(60deg);
+} 
 
 
 .sides-bar a {
     font-size: 20px;
     color: #444545;
-    padding-top: 1em;
-    margin-left: 1em;
+    margin: 0 10px;
 }
 
 .bar-item {
     font-size: 20px;
     padding: 10px 0px;
-
-
 }
