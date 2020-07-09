@@ -1,17 +1,110 @@
 {% extends 'main/base.html' %}
 {% block title %}首頁{% endblock %}
 {% load static %}
-{% block heading %}
+{% block css %}
+<style>
+/* ------------------手機------------------ */
+@media screen and (max-width: 500px) {
+    .contain {
+        width: auto;
+        height: auto;
+        position: relative;
+    }
+
+    .photo-banner {
+        height: 100vh;
+
+    }
+
+    .photo-banner img:first-child {
+        width: auto;
+        height: 100vh;
+    }
+
+    .ligunjei {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 20;
+    }
+
+    /* ---------------footer on cellphone--------------- */
+    footer {
+        background-color: transparent;
+        width: auto;
+        font-size: 12px;
+        flex-direction: row;
+    }
+
+}
+/* ----------------電腦------------------- */
+@media screen and (min-width: 501px) {
+    .photo-banner {
+        width: 100vw;
+        height: 100vh;
+    }
+
+    .photo-banner img {
+        width: 100%;
+        height: 100vh;
+    }
+
+    .ligunjei {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 20;
+    }
+}
+
+/* ----------------------footer--------------------- */
+footer {
+    width: 100%;
+    position: fixed;
+    transform: translateY(-100%);
+    z-index: 100;
+}
+
+footer ul {
+    display: flex;
+    justify-content: center;
+    background-color: transparent;
+}
+
+footer li {
+    margin-right: 10px;
+    transition: 1s;
+}
+
+footer a {
+    color: #444545;
+}
+
+footer li:hover {
+    transform: translateY(-10px);
+}
+
+footer li:nth-child(3):hover {
+    transform: translateY(0px);
+}
+
+
+</style>
 
 {% endblock %}
 
-{% block img %}
-    <img class="ligunjei" src="{% static "main/img/ligunjei.png" %}" alt="ligunjei">
-{% endblock %}
 
 {% block content %}
    <div class="container">
-       
+        <div class="photo-banner">
+            <img class="banner"
+                src="https://images.pexels.com/photos/1061623/pexels-photo-1061623.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+                alt="banner">
+            <img class="ligunjei" src="{% static "main/img/ligunjei.png" %}" alt="ligunjei">
+        </div>
+
 
         <footer>
             <ul>

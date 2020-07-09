@@ -1,4 +1,102 @@
 {% extends 'main/base.html' %}
+{% load static %}
 {% block title %}about{% endblock %}
-{% block heading %}About{% endblock %}
-{% block content %}hello about page!{% endblock %}
+{% block content %}
+<link href="https://fonts.googleapis.com/css2?family=Montserrat+Subrayada&display=swap" rel="stylesheet">
+{% block css%}
+<style>
+
+/*------------------電腦-------------------*/
+@media screen and (min-width: 501px) {
+    .container{
+        width: 60%;
+        margin: 0 auto;
+        height: 100vh;
+        position: relative;
+       
+    }
+    .about-text{
+        position: absolute;
+        top: 180px;
+        left: -165px;
+        z-index: 20;
+    }
+    .title{ 
+        color: #444545;
+        font-size: 40px;       
+        font-family: 'Montserrat Subrayada', sans-serif;
+        font-weight:lighter;
+    }
+    .info-box{
+        width: auto;
+        backdrop-filter:blur(10px);
+        height: 100%;
+        border-radius: 30px;
+        padding: 40px;
+        display: flex;
+        align-items:center;
+        box-sizing: border-box;
+    }
+    .info{
+        width: 900px;
+        font-size: 20px;
+        margin-left:2em ;
+        color: #444545;
+    }
+}
+/*-----------------手機-----------------*/
+@media screen and (max-width: 500px) {
+    .container{
+        overflow: hidden;
+        position: relative;
+        height: 100vh;
+    }
+    .about-text{
+        position: absolute;
+        top: 10px;
+        left: -25%;
+    }
+   
+    .info-box{
+        margin-top: 30%;
+        color: #444545;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+    .title{
+        font-size: 40px;
+    }
+    .info{
+        padding: 10px;
+        background-color: #DEDEDE;
+        color: #444545;
+        border-radius: 10px;
+        margin-top: 3em;
+        font-size: 20px;
+    }
+}
+@media screen and (min-width: 1200px){
+    .info{
+        color:#DEDEDE;
+    }
+}
+</style>
+{% endblock %}
+<div class="container">
+    <img class='about-text' src="{% static "main/img/about.PNG" %}"  alt="關於-書法">
+   
+    <div class="info-box">
+        <h2 class="title">About</h2>
+        <span class="info">
+            哩剛齋，取自台語諧音 “你知道嗎？” <br>
+            原本是應付 SIRLA 內部 Django專案的實驗網站。 <br>
+            後來想想，竟然都部署了，那乾脆版面也切一切，
+            這個勉強能跑的網站就誕生了。
+        </span>
+    </div>
+</div>
+{% endblock %}

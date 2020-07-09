@@ -1,7 +1,6 @@
 .fixed {
     position: fixed;
     z-index: 100;
-    
     right: 10px;
 }
 
@@ -13,7 +12,6 @@
     border-radius: 10px;
     height: auto;
     position: relative;
-
     transform: translateX(0);
     transition: .3s;
 }
@@ -51,16 +49,21 @@ label .fas {
 }
 
 
-#switch:checked > label .fas { 
+#switch:checked>label .fas {
     transform: rotate(60deg);
-} 
+}
 
 
 .sides-bar a {
     font-size: 20px;
     color: #444545;
     margin: 0 10px;
+    transition: .5s;
 }
+
+.sides-bar a:hover{
+    color: black;
+} 
 
 .bar-item {
     font-size: 20px;

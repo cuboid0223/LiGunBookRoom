@@ -24,21 +24,12 @@
 
     
     
-    <div class="content">
-        <div class="photo-banner">
-            <img class="banner"
-                src="https://images.pexels.com/photos/1061623/pexels-photo-1061623.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-                alt="banner">
-            {% block img %}{% endblock %}
-            <!-- <img class="ligunjei" src="{% static "main/img/ligunjei.png" %}" alt="ligunjei"> -->
-        </div>
-        {% block content %}
+    <div class="content">{% block content %}
        
         
         
         
-        {% endblock %}
-    </div>
+        {% endblock %}</div>
 
     <!-- jQuery cdn -->
     <script   src="https://code.jquery.com/jquery-3.5.1.js"   integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="   crossorigin="anonymous"></script>
