@@ -5,27 +5,39 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat+Subrayada&display=swap" rel="stylesheet">
 {% block css%}
 <style>
-
+.container{
+    height: 100vh;
+    position: relative;
+}
+.about-text{
+    position: absolute;
+}
+.info-box{
+    display: flex;
+    align-items:center;
+    box-sizing: border-box;
+}
+ .title{
+    font-size: 40px;
+    font-family: 'Montserrat Subrayada', sans-serif;
+}
+.info{
+    font-size: 20px;
+    color: #444545;
+}
 /*------------------PC、iPad-------------------*/
 @media screen and (min-width: 501px) {
     .container{
         width: 60%;
         margin: 0 auto;
-        height: 100vh;
-        position: relative;
-       
     }
     .about-text{
-        position: absolute;
         top: 180px;
         left: -165px;
         z-index: 20;
     }
     .title{ 
-        color: #444545;
-        font-size: 40px;       
-        font-family: 'Montserrat Subrayada', sans-serif;
-        font-weight:lighter;
+        color: #444545;    
     }
     .info-box{
         width: auto;
@@ -33,26 +45,18 @@
         height: 100%;
         border-radius: 30px;
         padding: 40px;
-        display: flex;
-        align-items:center;
-        box-sizing: border-box;
     }
     .info{
         width: 900px;
-        font-size: 20px;
         margin-left:2em ;
-        color: #444545;
     }
 }
 /*-----------------手機-----------------*/
 @media screen and (max-width: 500px) {
     .container{
         overflow: hidden;
-        position: relative;
-        height: 100vh;
     }
     .about-text{
-        position: absolute;
         top: 10px;
         left: -25%;
     }
@@ -60,23 +64,15 @@
     .info-box{
         margin-top: 30%;
         color: #444545;
-        display: flex;
         flex-direction: column;
         justify-content: center;
-        align-items: center;
         padding: 20px;
-        box-sizing: border-box;
-    }
-    .title{
-        font-size: 40px;
     }
     .info{
         padding: 10px;
         background-color: #DEDEDE;
-        color: #444545;
         border-radius: 10px;
         margin-top: 3em;
-        font-size: 20px;
     }
 }
 /*--------------電腦----------------*/
