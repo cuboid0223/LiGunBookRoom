@@ -1,12 +1,50 @@
 {% extends 'main/base.html' %}
-{% block heading %}註冊{% endblock %}
+{% load static %}
+{% block css %}
+<style>
+    .resign-text{
+        margin-top: 1em;
+    }
+    .container{
+        height: 100vh; 
+        display: flex;
+        flex-direction: column;  
+        align-items: center;
+    }
+    .container form{
+        background-color: #DEDEDE;
+        opacity: .7;
+        border-radius: 20px;
+        color: #444545;
+        font-size: 20px;
+        padding: 20px;
+        margin: 50px 20px 0 20px;
+        overflow: hidden;
+    }
+    .userForm{
+        font-size: 30px;
+        border-radius: 10px;
+        width: 200px;
+        font-weight: lighter;
+        border: 1px solid transparent;
+        margin-top: 10px;
+    }
+    .container .btn{
+        margin-top: 50px;
+        background-color: rgba(46, 204, 113, 1);
+    }
+</style>
+{% endblock %}
 {% block content %}
+
+<div class="container">
+    <img class="resign-text" src="{% static "main/img/resign.png" %}" alt="註冊">
     <form method="post" action="{% url 'account:register' %}">
         {% csrf_token %}
         {{ userForm.as_p }}
         <input  class="btn" type="submit" value="送出">
     </form>
-   
+</div>
     <!--新增超連結-->
     <a href="{% url 'social:begin' 'google-oauth2' %}">GOOLE 登入</a>
 {% endblock %}
