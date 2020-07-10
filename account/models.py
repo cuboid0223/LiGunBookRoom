@@ -4,7 +4,7 @@ from django.contrib.auth.models import AbstractUser
 # Create your models here.
 
 class User(AbstractUser):
-    fullName = models.CharField(max_length=128)
+    fullName = models.CharField(max_length=8)
     website = models.URLField(blank=True, null=True)
     address = models.CharField(max_length=128, blank=True, null=True)
     
