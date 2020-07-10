@@ -1,13 +1,83 @@
 {% extends 'main/base.html' %}
-{% block heading  %}登入{% endblock %}
+{% load static %}
+{% block css  %}
+<style>
+.login-text{
+    margin-top: 1em;
+}
+.container{
+    height: 100vh; 
+    display: flex;
+    flex-direction: column;  
+    align-items: center;
+}
+.container form{
+    background-color: #DEDEDE;
+    opacity: .7;
+    border-radius: 20px;
+    color: #444545;
+    font-size: 20px;
+    padding: 20px;
+    margin: 50px 20px 0 20px;
+    overflow: hidden;
+   
+}
+.userName,
+.userPwd{
+    font-size: 30px;
+    border-radius: 10px;
+    width: 200px;
+    font-weight: lighter;
+    border: 1px solid transparent;
+    margin-top: 10px;
+}
+.btn-flex{
+    display: flex;
+    justify-content: space-around;
+}
+.btn{
+    margin-top: 50px;
+}
+.google-login{
+    width: 150px;
+    height: 30px;
+    background-color: rgba(207, 85, 66, 1);
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    margin-top: 50px;
+    font-size: .8em;
+}
+.google-login i{
+    color: aliceblue;
+}
+.google-login a{
+    color: aliceblue;
+    margin-left: 1em;
+}
+</style>
+{% endblock %}
 {% block content %}
+<div class="container">
+    <img class="login-text" src="{% static "main/img/login.png" %}" alt="登入">
     <form method='post' action="{% url 'account:login' %}">
         {% csrf_token %}
-        <p>使用者名稱：<input type="text" name='username'></p>
-        <p>密碼：<input type="password" name='password'></p>
+        <p>使用者名稱：<input class="userName" type="text" name='username'></p>
+        <p>密碼：<input class="userPwd" type="password" name='password'></p>
         {% if nextURL %}
             <input type="hidden" name="nextURL" value="{{ nextURL }}">
         {% endif %}
-        <p><input class='btn' type="submit" value='送出'></p>
+        <div class="btn-flex">
+            <p><input class='btn' type="submit" value='送出'></p>
+            <div class="google-login">
+                <i class="fab fa-google"></i>
+                <a href="{% url 'social:begin' 'google-oauth2' %}">Google 登入</a>
+            </div>
+        </div>
     </form>
+    <!--新增超連結-->
+    
+    
+</div>
 {% endblock %}
