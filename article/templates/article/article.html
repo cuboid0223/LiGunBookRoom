@@ -158,7 +158,7 @@
 
         <!-- 管理員的新增文章按鈕 -->
         {% if user.is_superuser %}
-            <p><a class="articleCreate btn" href="{% url 'article:articleCreate' %}">新增文章</a></p>
+            <p><a class="articleCreate " href="{% url 'article:articleCreate' %}">新增文章</a></p>
         {% endif %} 
     </div>
 
