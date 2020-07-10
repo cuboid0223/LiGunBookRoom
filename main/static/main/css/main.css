@@ -20,7 +20,9 @@ i {
     background-color: transparent;
     border: transparent;
 }
-
+.container{
+    height: 100vh;
+}
 .btn {
     display: inline-block;
     color: white;

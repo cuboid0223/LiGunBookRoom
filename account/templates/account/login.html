@@ -63,7 +63,7 @@
     <img class="login-text" src="{% static "main/img/login.png" %}" alt="登入">
     <form method='post' action="{% url 'account:login' %}">
         {% csrf_token %}
-        <p>使用者名稱：<input class="userName" type="text" name='username'></p>
+        <p>帳號：<input class="userName" type="text" name='username'></p>
         <p>密碼：<input class="userPwd" type="password" name='password'></p>
         {% if nextURL %}
             <input type="hidden" name="nextURL" value="{{ nextURL }}">

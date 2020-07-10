@@ -1,110 +1,276 @@
 {% extends 'main/base.html' %}
-{% block title %}article{% endblock %}
 {% load static %}
-{% block css%}
+{% block title %}Article{% endblock %}
+
+{% block css %}
     <link rel="stylesheet" href="{% static 'article/css/article.css' %}">
     <link rel="stylesheet" href="{% static 'article/css/likes.css' %}">
+    <style>
+    @media screen and (max-width: 500px) {
+        .lilicoco-text{
+            position: fixed;
+            z-index: -10;
+            top: 50%;
+            left:50%;
+            transform: translate(-50%,-50%);
+        }
+        .SearchAndCreate-flex{
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1em;
+        }
+        .articleCreate{
+            margin-left: 1em;
+        }
+
+        .wrapper {
+            width: 80%;
+            margin: 0 auto;
+            box-sizing: border-box;
+            padding: 10px;
+            border: 1px solid #444545;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .article-title{
+            color: aliceblue;
+            font-size: 25px;
+            font-weight: lighter;
+            background-color: black;
+            padding: 10px;
+            border-radius: 10px;
+        }
+        .publish-time{
+            font-size: 10px;
+            font-style: italic;
+            color:#444545;
+        }
+        .articleContent {
+            font-size: 20px;
+            background-color: gray;
+            border-radius: 10px;
+            padding: 10px;
+            position: relative;
+        }
+        .articleContent .more{
+            position: absolute;
+            font-size: 15px;
+            right: 10px;
+            bottom: 5px;
+        }
+        .articleContent .more a{
+            color: rgba(46, 204, 113, 1);
+        }
+        .like{
+            display: flex;
+            justify-content: center;
+            margin-top: 5px;
+            color:red
+        }
+        .like i{
+            color:red
+        }
+        .like p{
+            margin-left: 5px;
+        }
+        .comment-container{
+            overflow: scroll;
+            overflow-x: hidden;
+            overflow-y: auto;
+            height: 250px;
+            background-color:rgba(121, 148, 190, 1);
+            padding: 10px;
+            overflow: hidden;
+        }
+        .comment-container .author{
+            border:1px solid black;
+            border-radius: 10px;
+            padding: 5px;
+        }
+        .comment{ 
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 5px 0 5px 0;
+        }
+        .comment .remove-comment,
+        .comment .local-comment{
+            padding: 0 8px 0 8px;
+            border-radius: 10px;
+            margin:5px 0 1em 1em;
+        }
+        .comment .remove-comment{
+            background-color: rgba(228, 232, 235, 1);
+        }
+        .comment .time{
+            font-size: 10px;
+            color:#444545;
+        }
+        .comment .local-comment{
+            background-color: rgba(46, 204, 113, 1);
+        }
+        .update-and-delete {
+            display: flex;
+            position: relative;
+        }
+
+        .update-box {
+            opacity: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        .tool {
+            display: inline-block;
+            position: absolute;
+            top: -60px;
+            left: 80px;    
+        }
+        .del-btn{
+            position: absolute;
+            top: -60px;
+            left: 120px; 
+        }
+        .my-comment{
+            width: 100%;
+            height: 20px;
+        }
+        .my-comment-submit{
+            font-size: 30px;
+            border-radius: 50%;
+            border:1px solid rgba(46, 204, 113, 1);
+            padding: 10px;
+            margin-top: 1em;
+        }
+        .my-comment-submit i{
+            color: rgba(46, 204, 113, 1);
+        }
+    }
+    </style>
 {% endblock %}
-{% block heading %}Article{% endblock %}
+
 
 {% block content %}
-{% include 'article/searchForm.html' %}
+    <img class="lilicoco-text" src="{% static "main/img/lilicoco.png" %}" alt="lilicoco">
 
-{% if user.is_superuser %}
-    <p><a class="btn" href="{% url 'article:articleCreate' %}">新增文章</a></p>
-{% endif %}
+    <div class="SearchAndCreate-flex">
+        <!-- 搜尋欄 -->
+        {% include 'article/searchForm.html' %} 
+
+        <!-- 管理員的新增文章按鈕 -->
+        {% if user.is_superuser %}
+            <p><a class="articleCreate btn" href="{% url 'article:articleCreate' %}">新增文章</a></p>
+        {% endif %} 
+    </div>
 
 {% for article,comments in articles.items %}
-<div class="wrapper">
-    <h3 class="article-title">{{ article.title }}</h3>
+    <div class="wrapper">
+        <!-- 文章標題 -->
+        <h3 class="article-title">{{ article.title }}</h3>
 
-{% if user.is_superuser %}
-    <!-- 刪除鍵 -->
-    <form class="delbtn" method="POST" action="{% url 'article:articleDelete' article.id %}">
-        {% csrf_token %}
-        <!-- <input class=" deleteConfirm " type="submit" value="X"> -->
-        <button class="deleteConfirm"  type="submit"><i class="fas fa-trash-alt"></i></button>
-    </form>
-{% endif %}
-    <pre class="publish-time">Publish-Time：{{ article.pubDateTime| date:'Y-m-d H:i' }}</pre>
-    <!-- <div class='articleContent'>{{ article.content|linebreaks|truncatechars_html:150 }}</div> -->
-    <div class='articleContent'>
-        <!-- 文章內容 -->
-        {{ article.content|linebreaks|truncatechars_html:100}}
-        <p class="more"><a href="{% url 'article:articleRead' article.id %}">More...</a></p>
-    </div>
 
-     <!-- 愛心 -->
-    <p class="like">
-        {% if user.is_authenticated %}
-            <a href="{% url 'article:articleLike' article.id %}" >
-                <i id="not-like" class="far fa-heart"></i>    
-                <i class="fas fa-heart yes-like"></i>
-            </a>
-           
-            <p class="likes-count"></p>{{ article.likes.count }}</p>
-  
+        <!-- 管理員的文章刪除鍵 -->
+        {% if user.is_superuser %}
+            <form class="delbtn" method="POST" action="{% url 'article:articleDelete' article.id %}">
+                {% csrf_token %}
+                <!-- <input class=" deleteConfirm " type="submit" value="X"> -->
+                <button class="deleteConfirm"  type="submit"><i class="fas fa-trash-alt"></i></button>
+            </form>
         {% endif %}
-    </p>
 
-    <!-- 留言區 -->
-    <div class="big-commentWrapper">
-    <div class="commentWrapper">
-        {% for comment in comments %}
-            <div class="commentDiv">  
-                <span class="author">{{ comment.user.fullName }} </span>
-                {% if comment.user != user %}
-                    <div class="container">
-                        <div class='remove-comment'>
-                            {{ comment.content | linebreaksbr |ljust:"10"}}
-                        </div>   
-                        <span class='time'>{{ comment.pubDateTime|date:'m/d H:i' }}</span>
-                    </div>
-                {% else %}
-                    <div class="container">
-                        <form method="post" action="{% url 'article:commentUpdate' comment.id %}">
-                            {% csrf_token %}
-                            <div class="local-comment">
+
+        <!-- 文章發表日期 -->
+        <pre class="publish-time">Publish-Time：{{ article.pubDateTime| date:'Y-m-d H:i' }}</pre>
+        <!-- <div class='articleContent'>{{ article.content|linebreaks|truncatechars_html:150 }}</div> -->
+            
+
+        <!-- 文章內容 -->
+        <div class='articleContent'> 
+            {{ article.content|linebreaks|truncatechars_html:100}}
+            <p class="more"><a href="{% url 'article:articleRead' article.id %}">More...</a></p>
+        </div>
+
+
+        <!-- 愛心 -->
+        <div class="like">
+            {% if user.is_authenticated %}
+                <a href="{% url 'article:articleLike' article.id %}" >
+                    <!-- <i class="far fa-heart"></i>   空心  -->
+                    <i class="fas fa-heart"></i>
+                </a>
+                <p class="likes-count"></p>{{ article.likes.count }}</div>
+            {% endif %}
+       
+
+
+        <!-- 留言區 -->
+            <div class="comment-container">
+            {% for comment in comments %}
+                    <!--留言者名稱-->
+                    <span class="author">{{ comment.user.fullName }} 曰:</span>
+                    
+
+                    {% if comment.user != user %} <!-- 如果留言者非留言者本人 -->
+                        <div class="comment">
+                            <div class='remove-comment'> <!-- 別人的留言-->
                                 {{ comment.content | linebreaksbr |ljust:"10"}}
+                            </div>   
+                            <!-- 留言發佈時間 -->
+                            <span class='time'>{{ comment.pubDateTime|date:'m/d H:i' }}</span>
+                        </div>
+                    {% else %} <!-- 如果留言者是留言者本人 -->
+                        <div class="comment">
+                            <form method="post" action="{% url 'article:commentUpdate' comment.id %}">
+                                {% csrf_token %}     
+                                <div class="local-comment"> <!-- 使用者自己的留言-->
+                                    {{ comment.content | linebreaksbr |ljust:"10"}}    
+                                </div>
+
                                 <div class="update-and-delete">
-                                    <i class="fas fa-wrench tool"></i>
+                                    <i class="fas fa-wrench tool"></i> <!-- 板手圖示-->
                                     <div class="update-box">
+                                        <!-- 編輯框 -->
                                         <textarea class="commentUpdate-input" type="text" name='comment' placeholder='{{ comment.content }}'></textarea>
                                         <!-- <input class="commentUpdate-btn" type="submit" value="修改"> -->
-                                        <button class="commentUpdate-btn" type="submit">save</button>
+                                        <!-- 儲存編輯按鈕 -->
+                                        <button class="commentUpdate-btn btn" type="submit">save</button>
                                     </div>
+                                
+                                    <!-- 留言刪除 -->
                                     <form action="{% url 'article:commentDelete' comment.id %}">
-                                        {% csrf_token %}
-                                        <input type="submit" class="btn" value="刪除">
+                                        {% csrf_token %}       
+                                        <button type="submit" value="刪除" class="del-btn"> 
+                                            <i class="fas fa-times-circle"></i>
+                                        </button>
                                     </form>
-                                    
                                 </div>
-                            </div>
-                        </form>
-                    </div>
-                {% endif %}
-                <br>
+                            </form>
+                        </div>
+                    {% endif %}
                 
+            {% endfor %}
             </div>
-        {% endfor %}
-        </div>
+
+
+        <!-- 留言欄 -->
+        {% if user.is_authenticated %}
+        <br>
+        <form method="post" action="{% url 'article:commentCreate' article.id %}">
+            {% csrf_token %}
+            <textarea class='my-comment' name="comment" placeholder="留言"></textarea>
+            <!-- <input class="btn" type="submit" value="送出"> -->
+            <!-- 留言送出按鈕-->
+            <button class="my-comment-submit" type="submit"><i class="fas fa-location-arrow"></i></button>
+        </form>
+        <br><br>
+        {% endif %}
     </div>
 
-    {% if user.is_authenticated %}
-    <br>
-    <form method="post" action="{% url 'article:commentCreate' article.id %}">
-        {% csrf_token %}
-        <textarea class='my-comment' name="comment" placeholder="留言"></textarea>
-        <!-- <input class="btn" type="submit" value="送出"> -->
-        <button  type="submit"><i class="fas fa-location-arrow"></i></button>
-    </form>
-    <br><br>
-    {% endif %}
-</div>
-
 {% endfor %}
-<hr>
 {% endblock %}
+
+
+
 
 {% block script %}
     <script src='{% static "main/js/deleteConfirm.js" %}'></script>  
