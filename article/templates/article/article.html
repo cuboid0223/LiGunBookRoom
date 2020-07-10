@@ -6,7 +6,6 @@
     <link rel="stylesheet" href="{% static 'article/css/article.css' %}">
     <link rel="stylesheet" href="{% static 'article/css/likes.css' %}">
     <style>
-    @media screen and (max-width: 500px) {
         .lilicoco-text{
             position: fixed;
             z-index: -10;
@@ -80,7 +79,7 @@
             height: 250px;
             background-color:rgba(121, 148, 190, 1);
             padding: 10px;
-            overflow: hidden;
+            margin-top: 1em;
         }
         .comment-container .author{
             border:1px solid black;
@@ -145,7 +144,7 @@
         .my-comment-submit i{
             color: rgba(46, 204, 113, 1);
         }
-    }
+
     </style>
 {% endblock %}
 
@@ -192,13 +191,15 @@
 
 
         <!-- 愛心 -->
-        <div class="like">
+        
             {% if user.is_authenticated %}
+            <div class="like">
                 <a href="{% url 'article:articleLike' article.id %}" >
                     <!-- <i class="far fa-heart"></i>   空心  -->
                     <i class="fas fa-heart"></i>
                 </a>
-                <p class="likes-count"></p>{{ article.likes.count }}</div>
+                <p class="likes-count"></p>{{ article.likes.count }}
+            </div>
             {% endif %}
        
 
