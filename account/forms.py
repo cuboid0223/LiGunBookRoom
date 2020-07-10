@@ -13,7 +13,7 @@ class UserForm(forms.ModelForm):
     address = forms.CharField(label='住址', max_length=128, required=False, widget=forms.TextInput(attrs={'class': 'userForm'}))# required=False 表示非必填選項欄
     class Meta:
         model = User
-        fields = ['username','password','password2','fullName']
+        fields = ['username','password','password2','fullName','website','address']
         widgets = {
             # 加入css 配合 widget=forms.TextInput(attrs={'class': 'userForm'})
             'userForm': forms.TextInput(attrs={'class': 'userForm'}),
