@@ -16,6 +16,9 @@
     }
 </style>
     <br>
+    <br>
+    <br>
+    <br>
     <form class="search-bar" action="{% url 'article:articleSearch' %}">
         <input class="text" type="text" name='searchTerm' {% if searchTerm %}value='{{ searchTerm }}'{% endif %} >
         <input class="btn" type="submit" value="查詢">
