@@ -5,25 +5,24 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat+Subrayada&display=swap" rel="stylesheet">
 {% block css%}
 <style>
+
 .container{
     height: 100vh;
-    position: relative;
+  
 }
-.about-text{
-    position: absolute;
-}
+
 .info-box{
     display: flex;
-    align-items:center;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     box-sizing: border-box;
 }
- .title{
-    font-size: 40px;
-    font-family: 'Montserrat Subrayada', sans-serif;
-}
+
 .info{
     font-size: 20px;
     color: #444545;
+    margin-top: 2em;
 }
 /*------------------PC、iPad-------------------*/
 @media screen and (min-width: 501px) {
@@ -31,24 +30,15 @@
         width: 60%;
         margin: 0 auto;
     }
-    .about-text{
-        top: 180px;
-        left: -165px;
-        z-index: 20;
-    }
-    .title{ 
-        color: #444545;    
-    }
     .info-box{
         width: auto;
-        backdrop-filter:blur(10px);
         height: 100%;
         border-radius: 30px;
         padding: 40px;
     }
     .info{
         width: 900px;
-        margin-left:2em ;
+        color: #444545;
     }
 }
 /*-----------------手機-----------------*/
@@ -56,11 +46,7 @@
     .container{
         overflow: hidden;
     }
-    .about-text{
-        top: 10px;
-        left: -25%;
-    }
-   
+
     .info-box{
         margin-top: 30%;
         color: #444545;
@@ -76,18 +62,11 @@
     }
 }
 /*--------------電腦----------------*/
-@media screen and (min-width: 1200px){
-    .info{
-        color:#DEDEDE;
-    }
-}
 </style>
 {% endblock %}
 <div class="container">
-    <img class='about-text' src="{% static "main/img/about.png" %}"  alt="關於-書法">
-   
-    <div class="info-box">
-        <h2 class="title">About</h2>
+    <div class="info-box"> 
+        <img class='about-text' src="{% static "main/img/about.png" %}" alt="關於-書法">
         <span class="info">
             哩剛齋，取自台語諧音 “你知道嗎？” <br>
             原本是應付 SIRLA 內部 Django專案的實驗網站。 <br>

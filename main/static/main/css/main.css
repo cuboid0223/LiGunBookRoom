@@ -10,8 +10,8 @@
 body {
     color: black;
     height: auto;
-    background: url('https://images.pexels.com/photos/1061623/pexels-photo-1061623.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260') right bottom;
-    background-repeat: repeat-x;
+    background: url('https://images.pexels.com/photos/1061623/pexels-photo-1061623.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260');
+    background-size: 100% 100%;
 }
 
 button,
@@ -19,9 +19,13 @@ i {
     background-color: transparent;
     border: transparent;
 }
-img{
+
+img {
     display: block;
+    height: auto;
+    max-width: 100%;
 }
+
 .btn {
     display: inline-block;
     color: white;

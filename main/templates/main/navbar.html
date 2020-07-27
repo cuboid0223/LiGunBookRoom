@@ -7,7 +7,282 @@
         <title>navbar</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="{% static 'main/css/navbar.css' %}">
+        <link rel="stylesheet" href="{% static 'main/css/ink-bar.css' %}">
+        <style>
+             body {
+     font-family: 'Roboto Condensed', sans-serif;
+     margin: 0;
+     padding: 0;
+ }
+
+
+ .nav-up {
+     top: -40px;
+ }
+
+
+ li {
+     list-style: none;
+ }
+
+
+ /*------------------------ 2 Home ------------------------*/
+
+
+ .nav-icon {}
+
+
+ /*------------------------ 2.1 Full Menu ------------------------*/
+
+ .full-menu {
+     position: fixed;
+     top: 0;
+     left: 0;
+     z-index: 3;
+     height: 100%;
+     width: 100%;
+     overflow: hidden;
+     background-size: cover;
+     opacity: 0;
+     visibility: hidden;
+     transition: opacity 0.3s 0s, visibility 0s 0.3s;
+ }
+
+ /* Full Menu */
+
+ .full-menu .modal-close {
+     /* 'X' icon */
+     position: absolute;
+     z-index: 1;
+     top: 0;
+     right: 0;
+     padding: 50px;
+     height: 45px;
+     width: 45px;
+     border-radius: 50%;
+     background: rgba(0, 0, 0, 0.3) url("{% static 'main/img/cd-icon-close.svg' %}")no-repeat center center;
+     overflow: hidden;
+     text-indent: 100%;
+     white-space: nowrap;
+     visibility: hidden;
+     opacity: 0;
+     transform: scale(0);
+     visibility: 0s 0.3s, opacity 0.3s 0s;
+     transition: transform 0.3s 0s, visibility 0s 0.3s, opacity 0.3s 0s;
+ }
+
+ .no-touch .full-menu .modal-close:hover {
+     background-color: rgba(0, 0, 0, 0.5);
+ }
+
+ .full-menu.visible {
+     background-size: 100%;
+     opacity: 1;
+     visibility: visible;
+     transition: opacity 0.7s, visibility 0s;
+ }
+
+ .full-menu.visible .fullmenu-content {
+     -webkit-overflow-scrolling: touch;
+ }
+
+ .full-menu.visible .modal-close {
+     visibility: visible;
+     opacity: 1;
+     transition: transform 0.3s 0s, visibility 0s 0s, opacity 0.3s 0s;
+     transform: scale(1);
+ }
+
+ @media only screen and (min-width: 1100px) {
+     .full-menu .fullmenu-content {
+         padding: 6em 5%;
+     }
+
+     .full-menu .modal-close {
+         height: 60px;
+         width: 60px;
+     }
+
+     .full-menu p {
+         font-size: 25px;
+     }
+ }
+
+ .cd-transition-layer {
+     position: fixed;
+     top: 0;
+     left: 0;
+     z-index: 2;
+     height: 100%;
+     width: 100%;
+     opacity: 0;
+     visibility: hidden;
+     overflow: hidden;
+ }
+
+ .cd-transition-layer .bg-layer {
+     position: absolute;
+     left: 50%;
+     top: 50%;
+     -webkit-transform: translateY(-50%) translateX(-2%);
+     transform: translateY(-50%) translateX(-2%);
+     height: 100%;
+     /* our sprite is composed of 25 frames */
+     width: 2500%;
+     background: url("{% static 'main/img/ink.png' %}") no-repeat 0 0;
+     background-size: 100% 100%;
+ }
+
+ .cd-transition-layer.visible {
+     opacity: 1;
+     visibility: visible;
+ }
+
+ .cd-transition-layer.opening .bg-layer {
+     animation: cd-sequence 1.0s steps(24);
+     animation-fill-mode: forwards;
+ }
+
+ .cd-transition-layer.closing .bg-layer {
+     animation: cd-sequence-reverse 1.0s steps(24);
+     animation-fill-mode: forwards;
+ }
+
+ .no-cssanimations .cd-transition-layer {
+     display: none;
+ }
+
+
+ @keyframes cd-sequence {
+     0% {
+         transform: translateY(-50%) translateX(-2%);
+     }
+
+     100% {
+         transform: translateY(-50%) translateX(-98%);
+     }
+ }
+
+
+
+
+ @keyframes cd-sequence-reverse {
+     0% {
+
+         transform: translateY(-50%) translateX(-98%);
+     }
+
+     100% {
+
+         transform: translateY(-50%) translateX(-2%);
+     }
+ }
+
+
+ /*------------------------ 2.2 Header ------------------------*/
+
+ .full-menu .fullmenu-content {
+     height: 100%;
+     width: 100%;
+     display: table;
+ }
+
+ .page-menu {
+     display: table-cell;
+     vertical-align: middle;
+     text-align: center;
+ }
+
+ .page-menu li {
+     line-height: 50px;
+     margin-left: -25px;
+ }
+
+ .page-menu li:last-child {
+     line-height: 90px;
+ }
+
+ .page-menu li a {
+     color: #fff;
+     font-size: 26px;
+     position: relative;
+     font-weight: 500;
+
+ }
+
+ .social img {
+     width: 15px;
+ }
+
+ .main .social {
+     margin-top: 30px;
+ }
+
+ .social a {
+     margin-right: 20px;
+ }
+
+ .social a:hover img {
+     opacity: .6;
+     transition: all ease 0.3s;
+ }
+
+ .social a:last-child {
+     margin-right: 0px;
+ }
+
+ header {
+     position: fixed;
+     padding: 30px;
+     top: 0;
+     width: 100%;
+     z-index: 2;
+ }
+
+
+ .nav-icon {
+     width: 23px;
+     height: 18px;
+     position: relative;
+     transform: rotate(0deg);
+     transition: .5s ease-in-out;
+     cursor: pointer;
+     margin-top: 0px;
+
+ }
+
+ .nav-icon span {
+     display: block;
+     position: absolute;
+     height: 2px;
+     width: 100%;
+     opacity: 1;
+     transform: rotate(0deg);
+     transition: .25s ease-in-out;
+     background-color: black;
+ }
+
+ .nav-icon span:nth-child(1) {
+     top: 0px;
+     transform-origin: left center;
+ }
+
+ .nav-icon span:nth-child(2) {
+     top: 6px;
+     transform-origin: left center;
+ }
+
+ .nav-icon span:nth-child(3) {
+     top: 12px;
+     transform-origin: left center;
+     width: 60%;
+     right: 0 !important;
+ }
+
+ .nav-icon:hover span:nth-child(3) {
+     width: 100%;
+ }
+        </style>
     </head>
     <body>
 
@@ -24,8 +299,8 @@
             {% endif %}
         </ul> -->
 
-                <!-- navbar -->
-                <div class="fixed">
+        <!-- navbar -->
+            <!-- <div class="fixed">
                     <input type="checkbox" id="switch">
                 
                     <div class="sides-bar">
@@ -44,7 +319,232 @@
                             {% endif %}
                         </ul>
                     </div>
-                </div>
+            </div> -->
+
+        <header>
+            <div class="nav-icon float-right">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </header>
+        
+        <!-- Full Menu -->
+        <div class="full-menu">
+            <div class="fullmenu-content">
+                <ul class="page-menu">
+                    <li><a class="active" href="{% url 'main:main' %}">首頁</a></li>
+                    <li><a href="{% url 'main:about' %}">關於</a></li>
+                    <li><a href="{% url 'article:article' %}">哩哩摳摳</a></li>
+                    {% if user.is_authenticated %}
+                    <li><a href="{% url 'account:logout' %}">登出</a></li>
+                    {% else %}
+                    <li><a href="{% url 'account:register' %}">註冊</a></li>
+                    <li><a href="{% url 'account:login' %}">登入</a></li>
+                    {% endif %}
+                    <li class="social">
+                        <a href="#"><img src="icons/social/instagram.svg" alt=""></a>
+                        <a href="#"><img src="icons/social/send.svg" alt=""></a>
+                    </li>
+                </ul>
+            </div>
+            <a href="#0" class="modal-close"></a>
+        </div>
+        <div class="cd-transition-layer visible opening">
+            <div class="bg-layer">
+                <!-- <img src="{% static 'main/img/ink.png' %}" alt="..."> -->
+            </div>
+        </div><!-- Ink Transition -->
+
        
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"
+        integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script>
+        'use strict';
+
+        $(document).ready(function () {
+
+
+
+            let width = 100,
+                perfData = window.performance.timing,// Performance.timing 是唯讀的屬性，傳回的 PerformanceTiming 物件當中包含了效能與時間延遲相關的資訊。
+                EstimatedTime = -(perfData.loadEventEnd - perfData.navigationStart),
+                time = ((EstimatedTime / 1000) % 50) * 100//動畫持續時間（for human）(毫秒)
+            console.log(perfData)
+            console.log("EstimatedTime: " + EstimatedTime)
+            console.log("time: " + time)
+
+
+
+            let animateValue = (id, start, end, duration) => {
+
+                let range = end - start,
+                    current = start,
+                    increment = end > start ? 1 : -1,
+                    stepTime = Math.abs(Math.floor(duration / range)),
+                    obj = $(id);
+
+
+                let timer = setInterval(() => {
+                    current += increment;
+                    $(obj).text(current);
+                    //obj.innerHTML = current;
+                    if (current == end) {
+                        clearInterval(timer);
+                    }
+                }, stepTime);
+            }
+
+            // Percentage Increment Animation
+            let PercentageID = $(".percentage"),
+                start = 0,
+                end = 100,
+                duration = time;
+
+            animateValue(PercentageID, start, end, duration);
+
+
+
+
+
+            setTimeout(function () {
+                $('.preloader').fadeOut();
+
+                $('.cd-transition-layer').addClass('closing').delay(1000).queue(function () {
+                    $(this).removeClass("visible closing opening").dequeue();
+                });
+
+            }, time);
+
+
+
+
+            // FADE OUT EFFECT WHEN CLICK A LINK
+            $(document).on("click", "a:not(.lightbox)", () => {
+                var newUrl = $(this).attr("href");
+                if (!newUrl || newUrl[0] === "#") {
+                    location.hash = newUrl;
+                    return;
+                }
+                $("html").fadeOut(function () {
+                    location = newUrl;
+                });
+                return false;
+            });
+
+
+            var paget = $(".page-title .title").text();
+
+            $(".page-title").append("<span></span>");
+            $(".page-title span").append(paget);
+
+
+
+            //posts page hover 
+            $('.blog-post .blog-link').hover(function () {
+                $(this).parent('.content-outter').parent('.blog-post').toggleClass('mousef');
+                $(this).parent('.blog-post').toggleClass('mousef');
+            });
+
+        });
+
+
+
+
+        $(window).on('load', () => {
+
+
+            let smokeEffect = () => {
+                var modalTrigger = $('.nav-icon'),
+                    transitionLayer = $('.cd-transition-layer'),
+                    transitionBackground = transitionLayer.children(),
+                    modalWindow = $('.full-menu');
+
+                var frameProportion = 1.78, //png frame aspect ratio
+                    frames = 25, //number of png frames
+                    resize = false;
+
+                let setLayerDimensions = () => {
+                    let windowWidth = $(window).width(),
+                        windowHeight = $(window).height(),
+                        layerHeight, layerWidth;
+
+                    if (windowWidth / windowHeight > frameProportion) {
+                        layerWidth = windowWidth;
+                        layerHeight = layerWidth / frameProportion;
+                    } else {
+                        layerHeight = windowHeight * 1.2;
+                        layerWidth = layerHeight * frameProportion;
+                    }
+
+                    transitionBackground.css({
+                        'width': layerWidth * frames + 'px',
+                        'height': layerHeight + 'px',
+                    });
+
+                    resize = false;
+                }
+
+                //set transitionBackground dimentions
+                setLayerDimensions();
+                $(window).on('resize', function () {
+                    if (!resize) {
+                        resize = true;
+                        (!window.requestAnimationFrame) ? setTimeout(setLayerDimensions, 300) : window.requestAnimationFrame(setLayerDimensions);
+                    }
+                });
+
+                //open modal window
+                modalTrigger.on('click', function (event) {
+                    event.preventDefault();
+                    transitionLayer.addClass('visible opening');
+                    var delay = ($('.no-cssanimations').length > 0) ? 0 : 600;
+                    setTimeout(function () {
+                        modalWindow.addClass('visible');
+                    }, delay);
+                });
+
+                //close modal window
+                modalWindow.on('click', '.modal-close', (event) => {
+                    event.preventDefault();
+                    transitionLayer.addClass('closing');
+                    modalWindow.removeClass('visible');
+                    transitionBackground.one('webkitAnimationEnd oanimationend msAnimationEnd animationend', function () {
+                        transitionLayer.removeClass('closing opening visible');
+                        transitionBackground.off('webkitAnimationEnd oanimationend msAnimationEnd animationend');
+                    });
+                });
+
+
+            }
+            smokeEffect()
+
+
+
+            /*--------------------------------------------------
+             Hero Section Height
+            ---------------------------------------------------*/
+            function homeh() {
+                var hometext = $('.main')
+
+                hometext.css({
+                    "height": $(window).height() + "px"
+                });
+            }
+            homeh();
+            $(window).resize(homeh);
+
+
+            $(".page-menu li:not(.social) a, .portfolio_filter ul li a").append("<span></span>");
+
+            $('.nav-icon').on("click", function () {//叉叉 跟 burger Icon 的切換
+                $(this).toggleClass('modal-close');
+            });
+
+
+
+        }); // document load end 
+
+    </script>
     </body>
 </html>
