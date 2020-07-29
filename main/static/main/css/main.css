@@ -9,8 +9,8 @@
 
 body {
     color: black;
-    height: auto;
-    background: url('https://images.pexels.com/photos/1061623/pexels-photo-1061623.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260');
+    height: 100vh;
+    background: url('https://images.pexels.com/photos/1061623/pexels-photo-1061623.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260') no-repeat;
     background-size: 100% 100%;
 }
 

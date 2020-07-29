@@ -2,6 +2,14 @@
 {% load static %}
 {% block css %}
     <link rel='stylesheet' href='{% static 'article/css/article.css' %}'>
+    <style>
+        .container{
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
 {% endblock %}
 
 {% block heading %}
@@ -13,14 +21,16 @@
 {% endblock %}
 
 {% block content %}
-    {% if articleForm.instance.id %}
-        <form method='post' action="{% url 'article:articleUpdate' articleForm.instance.id %}">
-    {% else %}
-        <form method='post' action="{% url 'article:articleCreate' %}">
-    {% endif %}
-            {% csrf_token %}
-            {{ articleForm.as_p }}
-            <input class='btn' type='submit' value='送出'>
-            <a class="btn" href="{% url 'article:article' %}">放棄</a>
-        </form>
+    <div class="container">
+        {% if articleForm.instance.id %}
+            <form method='post' action="{% url 'article:articleUpdate' articleForm.instance.id %}">
+        {% else %}
+            <form method='post' action="{% url 'article:articleCreate' %}">
+        {% endif %}
+                {% csrf_token %}
+                {{ articleForm.as_p }}
+                <input class='btn' type='submit' value='送出'>
+                <a class="btn" href="{% url 'article:article' %}">放棄</a>
+            </form>
+    </div>
 {% endblock %}
