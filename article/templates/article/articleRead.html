@@ -5,7 +5,7 @@
 <style>
     
     .container{
-        height: 100vh;
+        height: 100%;
         width: 90%;
         margin: 0 auto;
         display: flex;
@@ -20,14 +20,7 @@
         color: #DEDEDE;
         font-size: 10px;
     }
-    .articleContent{
-        margin-top: 20px;
-        background-color: #fff;
-        padding: 20px;
-        width: 90%;
-        border-radius: 10px;
-        opacity: .7;
-    }
+    
 </style>
 {% endblock %}
 
@@ -35,13 +28,12 @@
 <div class="container">
     <h3 class="title">{{ article.title }}</h3>
     {% if user.is_superuser %}
-        <a class='btn inlineBlock' href="{% url 'article:articleUpdate' article.id %}">修改</a>
+        <a class='btn' href="{% url 'article:articleUpdate' article.id %}">修改</a>
     {% endif %}
-    <p class="time">發表時間：{{ article.pubDateTime|date:'Y-m-d H:i' }}</p>
-    <div class="articleContent">{{ article.content|linebreaks }}</div>
+        <p class="time">發表時間：{{ article.pubDateTime|date:'Y-m-d H:i' }}</p>
+        <div class="articleContent">{{ article.content|linebreaks }}</div>
+
+    
+
 </div>
-
-
-     
-
 {% endblock %}

@@ -87,8 +87,8 @@ def articleLike(request, articleId):
         article.likes.add(request.user)
     else:#收回愛心
         article.likes.remove(request.user)
-    #return articleRead(request, articleId)
-    return redirect('article:article')
+    return articleRead(request, articleId)
+    # return redirect('article:article')
 
 
 @login_required
@@ -104,8 +104,8 @@ def commentCreate(request, articleId):
     
     article = get_object_or_404(Article, id=articleId)
     Comment.objects.create(article=article, user=request.user, content=comment)
-    #return redirect('article:articleRead', articleId=articleId)
-    return redirect('article:article')
+    return redirect('article:articleRead', articleId=articleId)
+    # return redirect('article:article')
 
 
 @login_required
@@ -117,8 +117,8 @@ def commentUpdate(request, commentId):
     #POST
     if commentToUpdate.user != request.user:
         messages.error(request, '你當你阿泓喔？') 
-        # return redirect('article:articleRead', articleId=article.id)
-        return redirect('article:article')
+        return redirect('article:articleRead', articleId=article.id)
+        # return redirect('article:article')
     comment = request.POST.get('comment', '').strip()
     if not comment:
         commentToUpdate.delete()
@@ -136,8 +136,8 @@ def commentDelete(request, commentId):
         return articleRead(request, article.id)
     if comment.user != request.user:
         messages.error(request, '無刪除權限')
-        # return redirect('article:articleRead', articleId=article.id)
-        return redirect('article:article')
+        return redirect('article:articleRead', articleId=article.id)
+        # return redirect('article:article')
     comment.delete()
-    # return redirect('article:articleRead', articleId=article.id)
-    return redirect('article:article')
+    return redirect('article:articleRead', articleId=article.id)
+    # return redirect('article:article')

@@ -6,6 +6,13 @@
     <link rel="stylesheet" href="{% static 'article/css/article.css' %}">
     <link rel="stylesheet" href="{% static 'article/css/likes.css' %}">
     <style>
+        body{
+            background: none;
+            background-color: #444545;
+        }
+        .content{
+            max-width: 100%;
+        }
         .lilicoco-text{
             position: fixed;
             z-index: -10;
@@ -14,11 +21,10 @@
             transform: translate(-50%,-50%);
         }
         .SearchAndCreate-flex{
-            
             margin-bottom: 1em;
         }
         .articleCreate{
-            width: 50%;
+            max-width: 300px;
             margin: 0 auto;
             display: flex;
             justify-content: center;
@@ -26,19 +32,20 @@
         }
 
         .wrapper {
-            width: 80%;
+            width:80%;
             margin: 0 auto;
             box-sizing: border-box;
             padding: 10px;
-            border: 1px solid #444545;
+            background-color: white;
+            box-shadow: 10px -10px #444545 60%;
             border-radius: 10px;
             margin-bottom: 20px;
         }
         .article-title{
-            color: aliceblue;
+            color: #444545;
             font-size: 25px;
             font-weight: lighter;
-            background-color: black;
+            letter-spacing: 3px;
             padding: 10px;
             border-radius: 10px;
         }
@@ -75,12 +82,21 @@
         .like p{
             margin-left: 5px;
         }
+        .articleContent{
+        margin-top: 20px;
+        background-color: #fff;
+        padding: 20px;
+        width: auto;
+        border-radius: 10px;
+        opacity: .7;
+    }
+
+
         .comment-container{
-            overflow: scroll;
-            overflow-x: hidden;
-            overflow-y: auto;
-            height: 250px;
-            background-color:rgba(121, 148, 190, 1);
+            width: auto;
+            height: auto;
+            border-radius: 20px;
+            border: 2px solid rgba(46, 204, 113, 1);
             padding: 10px;
             margin-top: 1em;
         }
@@ -117,10 +133,11 @@
         }
 
         .update-box {
-            opacity: 0;
-            position: absolute;
-            top: 0;
-            left: 0;
+            display: none;
+    
+        }
+        .active{
+            display: block;
         }
         .tool {
             display: inline-block;
@@ -135,7 +152,7 @@
         }
         .my-comment{
             width: 100%;
-            height: 20px;
+            height: 50px;
         }
         .my-comment-submit{
             font-size: 30px;
@@ -167,7 +184,6 @@
 
 {% for article,comments in articles.items %}
     <div class="wrapper">
-        <!-- 文章標題 -->
         <h3 class="article-title">{{ article.title }}</h3>
 
 
@@ -203,60 +219,64 @@
                 </a>
                 <p class="likes-count"></p>{{ article.likes.count }}
             </div>
-            {% endif %}
-       
-
-
-        <!-- 留言區 -->
-            <div class="comment-container">
+            {% endif %}     
+            
+        <!-- 留言區 start-->
+        <div class="comment-container">
             {% for comment in comments %}
-                    <!--留言者名稱-->
-                    <span class="author">{{ comment.user.fullName }} 曰:</span>
-                    
-
-                    {% if comment.user != user %} <!-- 如果留言者非留言者本人 -->
-                        <div class="comment">
-                            <div class='remove-comment'> <!-- 別人的留言-->
-                                {{ comment.content | linebreaksbr |ljust:"10"}}
-                            </div>   
-                            <!-- 留言發佈時間 -->
-                            <span class='time'>{{ comment.pubDateTime|date:'m/d H:i' }}</span>
-                        </div>
-                    {% else %} <!-- 如果留言者是留言者本人 -->
-                        <div class="comment">
-                            <form method="post" action="{% url 'article:commentUpdate' comment.id %}">
-                                {% csrf_token %}     
-                                <div class="local-comment"> <!-- 使用者自己的留言-->
-                                    {{ comment.content | linebreaksbr |ljust:"10"}}    
-                                </div>
-
-                                <div class="update-and-delete">
-                                    <i class="fas fa-wrench tool"></i> <!-- 板手圖示-->
-                                    <div class="update-box">
-                                        <!-- 編輯框 -->
-                                        <textarea class="commentUpdate-input" type="text" name='comment' placeholder='{{ comment.content }}'></textarea>
-                                        <!-- <input class="commentUpdate-btn" type="submit" value="修改"> -->
-                                        <!-- 儲存編輯按鈕 -->
-                                        <button class="commentUpdate-btn btn" type="submit">save</button>
-                                    </div>
-                                
-                                    <!-- 留言刪除 -->
-                                    <form action="{% url 'article:commentDelete' comment.id %}">
-                                        {% csrf_token %}       
-                                        <button type="submit" value="刪除" class="del-btn"> 
-                                            <i class="fas fa-times-circle"></i>
-                                        </button>
-                                    </form>
-                                </div>
-                            </form>
-                        </div>
-                    {% endif %}
-                
-            {% endfor %}
+            <!--留言者名稱-->
+            <span class="author">{{ comment.user.fullName }} 曰:</span>
+        
+        
+            {% if comment.user != user %}
+            <!-- 如果留言者非留言者本人 -->
+            <div class="comment">
+                <div class='remove-comment'>
+                    <!-- 別人的留言-->
+                    {{ comment.content | linebreaksbr |ljust:"10"}}
+                </div>
+                <!-- 留言發佈時間 -->
+                <span class='time'>{{ comment.pubDateTime|date:'m/d H:i' }}</span>
             </div>
-
-
-        <!-- 留言欄 -->
+            {% else %}
+            <!-- 如果留言者是留言者本人 -->
+            <div class="comment">
+                <form method="post" action="{% url 'article:commentUpdate' comment.id %}">
+                    {% csrf_token %}
+                    <div class="local-comment">
+                        <!-- 使用者自己的留言-->
+                        {{ comment.content | linebreaksbr |ljust:"10"}}
+                    </div>
+        
+                    <div class="update-and-delete">
+                        <i class="fas fa-wrench tool"></i> <!-- 板手圖示-->
+                        <div class="update-box">
+                            <!-- 編輯框 -->
+                            <textarea class="commentUpdate-input" type="text" name='comment'
+                                placeholder='{{ comment.content }}'></textarea>
+                            <!-- <input class="commentUpdate-btn" type="submit" value="修改"> -->
+                            <!-- 儲存編輯按鈕 -->
+                            <button class="commentUpdate-btn btn" type="submit">save</button>
+                        </div>
+        
+                        <!-- 留言刪除 -->
+                        <form action="{% url 'article:commentDelete' comment.id %}">
+                            {% csrf_token %}
+                            <button type="submit" value="刪除" class="del-btn">
+                                <i class="fas fa-times-circle"></i>
+                            </button>
+                        </form>
+                    </div>
+                </form>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+        
+        
+        
+        
+        <!-- 留言欄 start-->
         {% if user.is_authenticated %}
         <br>
         <form method="post" action="{% url 'article:commentCreate' article.id %}">
@@ -268,7 +288,10 @@
         </form>
         <br><br>
         {% endif %}
-    </div>
+        <!-- 留言欄  end-->
+        
+        </div>
+   
 
 {% endfor %}
 {% endblock %}
